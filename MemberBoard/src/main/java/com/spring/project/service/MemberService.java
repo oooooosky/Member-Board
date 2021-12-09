@@ -14,7 +14,7 @@ import com.spring.project.dto.MemberDTO;
 import com.spring.project.repository.MemberRepository;
 
 @Service
-public class MemberService {
+public class MemberService implements MemberInterface{
 
 	@Autowired
 	private MemberRepository mr;
@@ -22,6 +22,7 @@ public class MemberService {
 	@Autowired
 	private HttpSession session;
 	
+	@Override
 	public String join(MemberDTO member) throws IllegalStateException, IOException {
 		MultipartFile m_file = member.getM_file();
 		String m_filename = m_file.getOriginalFilename();
@@ -40,6 +41,7 @@ public class MemberService {
 		}
 	}
 
+	@Override
 	public String idDuplicate(String m_id) {
 		String result = mr.idDuplicate(m_id);
 		if(result == null) {
@@ -49,6 +51,7 @@ public class MemberService {
 		}
 	}
 
+	@Override
 	public String login(MemberDTO check) {
 		MemberDTO result = mr.login(check);
 		if(result != null) {
@@ -65,10 +68,12 @@ public class MemberService {
 		}
 	}
 
+	@Override
 	public MemberDTO findById(String m_id) {
 		return mr.findById(m_id);
 	}
 
+	@Override
 	public String update(MemberDTO member) throws IllegalStateException, IOException {
 		int result = 0;
 		if(!member.getM_file().isEmpty()) {
@@ -92,14 +97,17 @@ public class MemberService {
 		
 	}
 
+	@Override
 	public List<MemberDTO> findAll() {
 		return mr.findAll();
 	}
 
+	@Override
 	public MemberDTO detail(long m_number) {
 		return mr.detail(m_number);
 	}
 
+	@Override
 	public String delete(long m_number) {
 		int result = mr.delete(m_number);
 		if(result>0) {

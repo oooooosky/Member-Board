@@ -16,17 +16,20 @@ import com.spring.project.dto.PageDTO;
 import com.spring.project.repository.BoardRepository;
 
 @Service
-public class BoardService {
+public class BoardService implements BoardInterface{
 	
+	@Override
 	public List<BoardDTO> findAll() {
 		return br.findAll();
 	}
 	
+	@Override
 	public BoardDTO detail(long b_number) {
 		BoardDTO board = br.detail(b_number);
 		return board;
 	}
 	
+	@Override
 	public String delete(long b_number) {
 		int result = br.delete(b_number);
 		if(result>0) {
@@ -36,6 +39,7 @@ public class BoardService {
 		}
 	}
 	
+	@Override
 	public String update(BoardDTO board, Model model, int page) throws IllegalStateException, IOException {
 		int result = 0;
 		if(!board.getB_file().isEmpty()) {
@@ -59,6 +63,7 @@ public class BoardService {
 		}
 	}
 	
+	@Override
 	public BoardDTO findById(long b_number) {
 		BoardDTO board = br.findByID(b_number);
 		return board;
@@ -70,6 +75,7 @@ public class BoardService {
 	@Autowired
 	private BoardRepository br;
 	
+	@Override
 	public List<BoardDTO> pagingList(int page) {
 		int pagingStart = (page-1) * PAGE_LIMIT;
 		Map<String, Integer> pagingParam = new HashMap<String, Integer>();
@@ -79,6 +85,7 @@ public class BoardService {
 		return pagingList;
 	}
 
+	@Override
 	public PageDTO paging(int page) {
 		int boardCount = br.boardCount();
 		// ceil : 소수점이 있으면 다음 정수로 올림해줌.
@@ -97,6 +104,7 @@ public class BoardService {
 		return paging;
 	}
 
+	@Override
 	public List<BoardDTO> search(String searchtype, String keyword) {
 		Map<String, String> searchParam = new HashMap<String, String>();
 		searchParam.put("type", searchtype);
@@ -105,6 +113,7 @@ public class BoardService {
 		return bList;
 	}
 
+	@Override
 	public void saveFile(BoardDTO board) throws IllegalStateException, IOException {
 		MultipartFile b_file = board.getB_file();
 		String b_filename = b_file.getOriginalFilename();
