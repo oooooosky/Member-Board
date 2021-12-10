@@ -25,6 +25,14 @@
 3. CommentService
     - comment관련 요청값을 처리하거나 Repository에 전달하는 Service
 
+# Interface
+1. MemberInterface
+    - member 관련 메서드 관리
+3. BoardInterface
+    - board 관련 메서드 관리
+5. CommentInterface
+    - comment 관련 메서드 관리
+
 # Repository
 1. MemberRepository
     - member관련 DB에 정보를 요청 및 Service에 전달하는 Repository
